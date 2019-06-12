@@ -1,3 +1,4 @@
+#include "GameLib/GameLib.h"
 #include "File.h"
 
 #include <fstream>
@@ -7,7 +8,7 @@ using namespace std;
 File::File(const char* filename) : mSize(0), mData(0) {
   int size;
 	char *buffer = 0;
-	ifstream in(filename,ifstream::binary /* 超超超超超重要！！！ */);
+	ifstream in(filename,ifstream::binary /* 超重要！！！ */);
 	if (!in) {
 		buffer = 0;
 		size = 0;
@@ -39,6 +40,7 @@ char* File::data() const {
 unsigned File::getUnsigned(int i) {
 	const unsigned char* up;
 	up = reinterpret_cast<const unsigned char*>(mData);
+	ASSERT(mData != 0);
 	unsigned r = up[i];
 	r |= up[i+1] << 8;
 	r |= up[i+2] << 16;

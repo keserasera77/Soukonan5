@@ -52,3 +52,9 @@ void Image::drawPicture(
 		}
 	}
 }
+
+
+void Image::drawScreen() {
+	Framework f = Framework::instance();
+	drawPicture(0, 0, 0, 0, f.width(), f.height());
+}

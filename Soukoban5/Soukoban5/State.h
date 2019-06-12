@@ -4,7 +4,7 @@ class Image;
 
 template<class T> class Array2D {
 public:
-	Array2D() : mArray(0) {}
+	Array2D() : mArray(0),mWidth(0),mHeight(0){}
 	~Array2D() {
 		delete[] mArray;
 		mArray = 0;

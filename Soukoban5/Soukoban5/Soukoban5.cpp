@@ -1,30 +1,21 @@
-//Stateのメンバ変数mPx,mPyや、gCellEdgeを用いている点がサンプルコードと違う。
+// Sequence -> Child, Parent
+//drawScreenをImageクラスに移動
+//第10章のシークエンス遷移も参考にした(クラスの継承を利用した方法)
 
 #include "GameLib/Framework.h"
 #include <iostream>
-#include "Image.h"
-#include "File.h"
 #include "State.h"
-#include "Sequence.h"
+#include "Sequence/Parent.h"
 
 using namespace GameLib;
 
-Sequence* gSequence = 0;
 int gCount = 0; //mainLoopのループ数
-
-enum SequenceID {
-	SEQUENCE_TITLE,
-	SEQUENCE_GAME,
-	SEQUENCE_SELECT,
-	SEQUENCE_LOAD,
-	SEQUENCE_CLEAR,
-	SEQUENCE_MENU
-};
 
 namespace GameLib {
 	void Framework::update() {
 	Framework f = Framework::instance();
-	 instance().sleep(1); //少しは寝かせる
+
+	f.sleep(1); //少しは寝かせる
 
 	//フレームレート計測
 	 unsigned currentTime = f.time();
@@ -32,8 +23,8 @@ namespace GameLib {
 	 gCount++;
 	 //f.setFrameRate(60) // 固定フレームレート
 
-	 if (!gSequence) {
-		 gSequence = new Sequence; 
+	 if (!Sequence::Parent::instance()) {
+		 Sequence::Parent::create();
 	 }
 
 	 //終了
@@ -42,11 +33,11 @@ namespace GameLib {
 	 }
 
 	 if (f.isEndRequested()) {
-		 SAFE_DELETE(gSequence);
+		 Sequence::Parent::destroy();
 		 return;
 	 }
 
-	 gSequence->doSequence();
+	 Sequence::Parent::instance()->update();
 	 }
 }
 

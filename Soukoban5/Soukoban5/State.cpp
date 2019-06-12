@@ -121,7 +121,7 @@ State::State(const char* stageData, int stageSize) {
 	}
 
 	//画像の読み込み
-	mObjectImage = new Image("Images.dds");
+	mObjectImage = new Image("Image/Images.dds");
 }
 
 void State::setSize(const char* stage, int size) {
@@ -157,13 +157,12 @@ void State::drawStage() const {
 	for (int y = 0; y < mStageHeight; ++y) {
 		for (int x = 0; x < mStageWidth; ++x) {
 			mObjects(x, y).drawBackground(x, y, mObjectImage);
-			//			mObjects( x, y ).drawForeground( x, y, mImage, mMoveCount ); //ここを復活させて、下のループを消すと、人が裂ける絵が出る。
 		}
 	}
 	//次に前景を描画
 	for (int y = 0; y < mStageHeight; ++y) {
 		for (int x = 0; x < mStageWidth; ++x) {
-			mObjects(x, y).drawForeground(x, y, mObjectImage, mMoveCount);
+			mObjects(x, y).drawForeground(x, y, mObjectImage, mMoveCount); //mMoveCountを型変換によってfloorをだしてるのはわざと
 		}
 	}
 }

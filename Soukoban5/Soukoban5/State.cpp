@@ -29,7 +29,8 @@ public:
 	};
 
 	Object() : mType(OBJ_WALL), mGoalFlag(false), mMoveX(0), mMoveY(0) {};
-	//~Object();
+	
+	~Object() {}
 
 	Type mType;
 	bool mGoalFlag;
@@ -121,7 +122,11 @@ State::State(const char* stageData, int stageSize) {
 	}
 
 	//画像の読み込み
-	mObjectImage = new Image("Image/Images.dds");
+	mImage = new Image("Image/Images.dds");
+}
+
+State::~State() {
+	SAFE_DELETE(mImage);
 }
 
 void State::setSize(const char* stage, int size) {
@@ -156,13 +161,13 @@ void State::drawStage() const {
 	//二段階に分けて描画する。まず背景を描画。
 	for (int y = 0; y < mStageHeight; ++y) {
 		for (int x = 0; x < mStageWidth; ++x) {
-			mObjects(x, y).drawBackground(x, y, mObjectImage);
+			mObjects(x, y).drawBackground(x, y, mImage);
 		}
 	}
 	//次に前景を描画
 	for (int y = 0; y < mStageHeight; ++y) {
 		for (int x = 0; x < mStageWidth; ++x) {
-			mObjects(x, y).drawForeground(x, y, mObjectImage, mMoveCount); //mMoveCountを型変換によってfloorをだしてるのはわざと
+			mObjects(x, y).drawForeground(x, y, mImage, mMoveCount); //mMoveCountを型変換によってfloorをだしてるのはわざと
 		}
 	}
 }

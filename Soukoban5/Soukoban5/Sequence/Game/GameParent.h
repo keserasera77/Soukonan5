@@ -29,11 +29,15 @@ public:
 	void moveTo(NextSequence);
 	void setState(State* state);
 	State* getState();
+	void initStage(const char* data, int size);
+	void initState();
 
 private:
 	NextSequence mNextSequence;
 	Game::Child* mChild;
 	const char* mStageName;
+	const char* mStageData;
+	int mStageSize;
 	State* mState;
 };
 

@@ -22,7 +22,8 @@ Child* Menu::update(Parent* parent) {
 	Framework f = Framework::instance();
 	Child* next = this;
 	if (f.isKeyTriggered('1')) {
-	  next = new Load;
+	  next = new Game;
+		parent->initState();
 		//SAFE_DELETE(mState);
 	}
 	else if (f.isKeyTriggered('2')) {

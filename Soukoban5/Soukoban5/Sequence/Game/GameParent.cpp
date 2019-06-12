@@ -5,12 +5,14 @@
 #include "Sequence/Game/GameParent.h"
 #include "Sequence/Game/GameChild.h"
 #include "Sequence/Game/Load.h"
+#include "State.h"
+
 
 namespace Sequence {
 namespace Game {
 
 //SelectからLoadへ行くパターン
-Parent::Parent(const char* filename) : mNextSequence(NEXT_NONE), mState(0) {
+Parent::Parent(const char* filename) : mNextSequence(NEXT_NONE), mState(0), mStageData(0), mStageSize(0) {
   mChild = new Load();
   mStageName = filename;
 }
@@ -25,6 +27,16 @@ void Parent::setState(State* state) {
 }
 State* Parent::getState() {
 	return mState;
+}
+
+void Parent::initStage(const char* data, int size) {
+	mStageData = data;
+	mStageSize = size;
+}
+
+void Parent::initState() {
+	SAFE_DELETE(mState);
+	mState = new State(mStageData, mStageSize);
 }
 
 Sequence::Child* Parent::update(Sequence::Parent* parent) {

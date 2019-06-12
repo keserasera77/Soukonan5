@@ -26,7 +26,9 @@ Child* Load::update(Parent* parent) {
 		cout << "stagefile could not be read";
 		return next;
 	}
-	parent->setState(new State(stage.data(), stage.size()));
+	
+	parent->initStage(stage.data(), stage.size());
+	parent->initState();
 	next = new Game;
 	return next;
 

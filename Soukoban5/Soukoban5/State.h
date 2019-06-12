@@ -29,7 +29,7 @@ private:
 class State {
 public:
 	State(const char* stageData, int stageSize);
-	//~State();
+	~State();
 	void update(unsigned frameTime);
 	void drawStage() const;
 	bool clearCheck() const;
@@ -42,7 +42,7 @@ private:
 	int mStageWidth;
 	int mStageHeight;
 	char* mStageData;
-	Image* mObjectImage; //画像データ
+	Image* mImage; //画像データ
 	int mPx, mPy; //プレイヤーの座標
 	Array2D<Object> mObjects;
   double mMoveCount; //動き始めてから何画素移動したか。 0 <= mMovingPlace < 32
